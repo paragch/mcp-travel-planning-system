@@ -11,7 +11,8 @@ def demo_hotel_search():
     
     print("🏨 HOTEL SEARCH DEMO")
     print("=" * 60)
-    print("This is exactly what users will see when searching for hotels")
+    print("⚠️  DEMO DATA ONLY - Limited examples, not comprehensive hotel listings")
+    print("This shows system functionality - verify all details independently")
     print()
     
     server = MultiHotelAPIServer()

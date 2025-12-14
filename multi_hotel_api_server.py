@@ -257,22 +257,32 @@ class MultiHotelAPIServer:
                     
                     result += "\n"
                 
-                result += f"""💡 BOOKING OPTIONS:
-🌐 Visit hotel websites directly
-📞 Call hotels for availability and booking
-🔗 Use major booking platforms:
-   • Hotels.com
-   • Expedia.co.uk  
-   • Trivago.co.uk
+                result += f"""⚠️  IMPORTANT DISCLAIMERS:
+💰 Prices shown are SAMPLE/DEMO data for system testing only
+📋 Results show LIMITED EXAMPLES - NOT all hotels in the area
+🏨 Many hotels in {location} will NOT appear in these results
+❌ Inclusion/exclusion is NOT a reflection of hotel quality
+📅 Not real-time data - verify everything with hotels directly
+🚫 This system does NOT process actual bookings
 
-📊 Data Sources Used:
-✅ OpenStreetMap (Real hotel locations)
-✅ UK Hotel Chains (Major brands)
-{'✅ RapidAPI (Live data)' if self.apis['rapidapi']['enabled'] else '⚠️  RapidAPI (Not configured)'}
+💡 FOR REAL BOOKINGS:
+🌐 Visit hotel websites directly for current prices
+📞 Call hotels for real availability and rates
+🔍 Search comprehensive booking platforms:
+   • Hotels.com | Booking.com | Expedia.co.uk
+   • Trivago.co.uk | Agoda.com | Hotels.co.uk
+🗺️  Use local tourism websites for complete listings
 
-🔧 To get more real-time data:
-• Set up RapidAPI key for Hotels.com
-• Use Foursquare Places API"""
+📊 Data Sources (Limited Coverage):
+✅ Sample UK Hotel Chains (Major brands only)
+✅ OpenStreetMap (Selected locations)
+{'✅ RapidAPI (Partial data)' if self.apis['rapidapi']['enabled'] else '⚠️  RapidAPI (Not configured)'}
+
+🔍 For comprehensive hotel search:
+• Use multiple booking platforms
+• Check local tourism websites
+• Contact destination visitor centers
+• Verify all details independently"""
                 
             else:
                 result += f"""❌ No hotels found for {location}

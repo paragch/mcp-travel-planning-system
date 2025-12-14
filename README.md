@@ -144,11 +144,13 @@ The system works with **demo data** out of the box, but you can configure **real
 **Built-in System:** No external API required
 
 #### What's Included:
-The `multi_hotel_api_server.py` provides comprehensive hotel data using:
+The `multi_hotel_api_server.py` provides **limited sample hotel data** using:
+
+**⚠️ Important:** This shows **selected examples only** - many hotels in any area will not appear in results.
 
 1. **UK Hotel Chains Database** (Primary)
    - ✅ **Real hotel brands** (Premier Inn, Holiday Inn Express, Ibis, Travelodge)
-   - ✅ **Realistic pricing** (£50-£150/night based on location)
+   - ✅ **Sample pricing** (simulated ranges for demonstration purposes)
    - ✅ **Real contact information** (phone numbers, websites)
    - ✅ **Accurate locations** for all UK cities
    - ✅ **Hotel amenities** and ratings
@@ -188,10 +190,10 @@ The system provides **excellent functionality** without any API setup:
 
 #### Hotel Data (Multi-Hotel API Server):
 - ✅ **Real UK hotel chains** (Premier Inn, Holiday Inn Express, Ibis, Travelodge)
-- ✅ **Realistic pricing** (£50-£150/night based on location)
+- ✅ **Sample pricing** (simulated data for demonstration purposes)
 - ✅ **Real contact information** (phone numbers, websites)
 - ✅ **Accurate locations** for all UK cities including East Croydon
-- ✅ **Hotel amenities** and ratings (8.0-9.0/10)
+- ✅ **Hotel amenities** and sample ratings
 
 ---
 
@@ -302,11 +304,13 @@ For production use with APIs:
 
 ## 🎯 Example Results
 
-### East Croydon Hotels (December 15-16, 2025)
-- **Premier Inn East Croydon** - £97/night ⭐ 8.5/10
-- **Holiday Inn Express** - £103/night ⭐ 8.3/10  
-- **Ibis East Croydon** - £86/night ⭐ 8.1/10
-- **Travelodge East Croydon** - £73/night ⭐ 8.0/10
+### Example Hotel Results (Demo Data)
+- **Premier Inn** - £XX/night ⭐ 8.5/10
+- **Holiday Inn Express** - £XX/night ⭐ 8.3/10  
+- **Ibis** - £XX/night ⭐ 8.1/10
+- **Travelodge** - £XX/night ⭐ 8.0/10
+
+*Note: Prices shown are simulated for demonstration purposes only*
 
 ### Live Train Data
 - Real LNER, CrossCountry, and regional services
@@ -383,9 +387,42 @@ For production use with APIs:
 
 ---
 
+## ⚠️ Important Disclaimers
+
+### 🏨 Hotel Data Disclaimer
+- **Sample Data:** All hotel prices and ratings are **simulated/sample data** for demonstration purposes only
+- **Limited Coverage:** Results show **selected examples** from open APIs and databases - **NOT all hotels** in an area
+- **Incomplete Listings:** Many hotels in the vicinity **will not appear** in search results
+- **No Hotel Endorsement:** Inclusion/exclusion of hotels is **not a reflection** of hotel quality or services
+- **Data Sources:** Results from limited API calls and sample databases, not comprehensive hotel directories
+- **Availability:** Hotel availability is **not real-time** and is for testing system functionality only
+- **Booking:** This system does **not process actual bookings** - users must contact hotels directly
+- **Verification Required:** Always verify all hotel details, pricing, and availability independently
+- **No Liability:** No responsibility for data completeness, accuracy, pricing, availability, or booking outcomes
+
+### 🚂 Train Data Disclaimer  
+- **Demo Mode:** Without API keys, train data is **sample/demonstration data** only
+- **Live Data:** With Transport API, data is provided by third-party services
+- **Booking:** This system does **not process ticket purchases** - use official booking platforms
+- **Accuracy:** Always verify train times and prices on official railway websites
+
+### 🔧 System Purpose
+- **Educational/Development:** This system is designed for learning MCP architecture and travel planning concepts
+- **Demonstration:** Shows integration patterns and natural language processing capabilities
+- **Not Commercial:** Not intended for commercial booking or travel agency operations
+
+### 📞 Official Booking
+- **Hotels:** Contact hotels directly or use official booking platforms
+- **Trains:** Use [trainline.com](https://trainline.com), [nationalrail.co.uk](https://nationalrail.co.uk), or station booking offices
+- **Verification:** Always verify prices, availability, and terms on official websites
+
+---
+
 ## 📄 License
 
 This project is open source. Feel free to use, modify, and distribute.
+
+**Note:** This software is provided "as is" without warranty of any kind. Users are responsible for verifying all travel information independently.
 
 ## 🎉 Acknowledgments
 
