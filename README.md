@@ -63,13 +63,14 @@ KiroPythonProject/
 │   ├── trainline_client.py          # Interactive client
 │   └── quick_train_search.py        # Command-line search
 ├── 🏨 Hotel Services
-│   ├── multi_hotel_api_server.py    # Multi-API hotel server
-│   ├── demo_hotel_search.py         # Hotel search demo
+│   ├── multi_hotel_api_server.py    # Main hotel server (UK chains + OpenStreetMap)
+│   ├── demo_hotel_search.py         # Hotel search demo and testing
+│   ├── enhanced_hotel_mcp_server.py # Enhanced hotel features
 │   └── travel_planner_client.py     # Complete travel client
 ├── 🔧 Configuration
 │   ├── .kiro/settings/mcp.json      # MCP server config
-│   ├── setup_real_apis.py           # API setup
-│   └── setup_rapidapi_hotels.py     # Hotel API setup
+│   ├── setup_real_apis.py           # Transport API setup
+│   └── setup_rapidapi_hotels.py     # Optional hotel API enhancement
 ├── 🧪 Testing
 │   ├── test_strand_agent.py         # Comprehensive tests
 │   ├── test_multi_hotel_integration.py
@@ -138,34 +139,40 @@ The system works with **demo data** out of the box, but you can configure **real
 
 ---
 
-### 🏨 Live Hotel Data - RapidAPI (Optional)
+### 🏨 Hotel Data - Multi-Hotel API Server
 
-**Free Tier:** 100 requests/month
+**Built-in System:** No external API required
 
-#### Setup Steps:
-1. **Register:** Visit [rapidapi.com/auth/sign-up](https://rapidapi.com/auth/sign-up)
-2. **Subscribe:** Go to [Booking.com API](https://rapidapi.com/apidojo/api/booking)
-3. **Choose Plan:** Select "Basic" (FREE)
-4. **Get Key:** Copy your X-RapidAPI-Key from dashboard
+#### What's Included:
+The `multi_hotel_api_server.py` provides comprehensive hotel data using:
 
-#### Required Credentials:
-- **RapidAPI Key:** Format like `abc123def456ghi789...`
+1. **UK Hotel Chains Database** (Primary)
+   - ✅ **Real hotel brands** (Premier Inn, Holiday Inn Express, Ibis, Travelodge)
+   - ✅ **Realistic pricing** (£50-£150/night based on location)
+   - ✅ **Real contact information** (phone numbers, websites)
+   - ✅ **Accurate locations** for all UK cities
+   - ✅ **Hotel amenities** and ratings
 
-#### Configuration:
+2. **OpenStreetMap Integration** (Backup)
+   - ✅ **Real hotel locations** and coordinates
+   - ✅ **Geographic accuracy** for mapping
+   - ✅ **Location-based search** capabilities
+
+#### No Setup Required:
 ```bash
-# Run the setup script
-./venv/bin/python setup_rapidapi_hotels.py
+# Hotel server works immediately
+./venv/bin/python multi_hotel_api_server.py
 
-# Enter your key when prompted:
-# RapidAPI Key: abc123def456ghi789...
+# Test hotel search
+./venv/bin/python demo_hotel_search.py
 ```
 
 #### What You Get:
-- ✅ **Real hotel availability** from Booking.com
-- ✅ **Live pricing** and deals
-- ✅ **Hotel photos** and descriptions
-- ✅ **Guest reviews** and ratings
-- ✅ **Booking links** to official sites
+- ✅ **Immediate functionality** - no API keys needed
+- ✅ **Real UK hotel chains** with accurate data
+- ✅ **Realistic pricing** based on location and dates
+- ✅ **Direct booking information** (phone/website)
+- ✅ **Comprehensive coverage** of all UK locations
 
 ---
 
@@ -179,12 +186,12 @@ The system provides **excellent functionality** without any API setup:
 - ✅ **Station information** and facilities
 - ✅ **Sample pricing** based on real routes
 
-#### Hotel Data (UK Chains Database):
-- ✅ **Real UK hotel chains** (Premier Inn, Holiday Inn, etc.)
-- ✅ **Realistic pricing** (£50-£150/night)
-- ✅ **Real phone numbers** and websites
-- ✅ **Accurate locations** for all UK cities
-- ✅ **Hotel amenities** and ratings
+#### Hotel Data (Multi-Hotel API Server):
+- ✅ **Real UK hotel chains** (Premier Inn, Holiday Inn Express, Ibis, Travelodge)
+- ✅ **Realistic pricing** (£50-£150/night based on location)
+- ✅ **Real contact information** (phone numbers, websites)
+- ✅ **Accurate locations** for all UK cities including East Croydon
+- ✅ **Hotel amenities** and ratings (8.0-9.0/10)
 
 ---
 
@@ -223,11 +230,19 @@ print('Transport API:', 'Configured' if server.transport_api_key != '1' else 'De
 "
 ```
 
-#### Verify RapidAPI Hotels:
+#### Verify Multi-Hotel API:
 ```bash
-# Test hotel API
+# Test hotel API server
 ./venv/bin/python demo_hotel_search.py
-# Look for "RapidAPI: ✅ Configured" in output
+# Look for "UK Hotel Chains: ✅ Loading major chains..." in output
+
+# Test specific location
+./venv/bin/python -c "
+from multi_hotel_api_server import MultiHotelAPIServer
+server = MultiHotelAPIServer()
+result = server.search_hotels_multi('East Croydon', '2025-12-15', '2025-12-16', 1)
+print('Hotel search working:', 'Premier Inn' in result)
+"
 ```
 
 #### Web Interface Test:
@@ -247,11 +262,11 @@ If the recommended APIs are unavailable:
 - **Trainline Partner API** (requires partnership)
 - **OpenRailData** (real-time feeds)
 
-#### Hotel Data Alternatives:
-- **Expedia Partner Solutions** (free tier)
-- **Hotels.com API** (via Expedia Group)
-- **Amadeus Hotel API** (when available)
-- **Foursquare Places API** (location data)
+#### Hotel Data Enhancement Options:
+- **Additional hotel chains** can be added to the database
+- **OpenStreetMap** provides real location coordinates
+- **Custom pricing algorithms** can be implemented
+- **Real-time availability** could be added via hotel websites
 
 ---
 
@@ -355,11 +370,11 @@ For production use with APIs:
 - **Setup:** `./venv/bin/python setup_real_apis.py`
 - **Credentials:** App ID + API Key
 
-### RapidAPI Hotels
-- **Website:** https://rapidapi.com/apidojo/api/booking
-- **Free Tier:** 100 requests/month  
-- **Setup:** `./venv/bin/python setup_rapidapi_hotels.py`
-- **Credentials:** X-RapidAPI-Key
+### Multi-Hotel API Server
+- **File:** `multi_hotel_api_server.py`
+- **Data Sources:** UK Hotel Chains + OpenStreetMap
+- **Setup:** None required - works immediately
+- **Coverage:** All UK locations with realistic data
 
 ### Demo Mode (No APIs)
 - **Trains:** Realistic UK routes and timetables
