@@ -247,7 +247,7 @@ class MultiHotelAPIServer:
                     
                     result += f"""🏨 {hotel['name']}
 ⭐ {hotel['rating']:.1f}/10 | {hotel.get('source', 'Database')}
-💰 £{hotel['price']}/night | Total: £{total_price}
+💰 £XX/night | Total: £XX (SAMPLE PRICING)
 📞 {hotel.get('phone', 'Contact hotel directly')}
 🌐 {hotel.get('website', 'Search online')}
 """

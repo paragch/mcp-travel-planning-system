@@ -77,7 +77,7 @@ def main():
         print()
         print("📋 Summary of what users get:")
         print("✅ Real UK hotel chain data")
-        print("✅ Realistic pricing (£50-£100+ per night)")
+        print("✅ Sample pricing (demo data only - not real rates)")
         print("✅ Real phone numbers and websites")
         print("✅ Hotel ratings and amenities")
         print("✅ Multiple booking options")
