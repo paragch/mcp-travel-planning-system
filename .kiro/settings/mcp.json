@@ -1,0 +1,33 @@
+{
+  "mcpServers": {
+    "workspace-greeter": {
+      "command": "./venv/bin/python",
+      "args": [
+        "mcp_server.py"
+      ],
+      "disabled": false
+    },
+    "trainline-connector": {
+      "command": "./venv/bin/python",
+      "args": [
+        "trainline_mcp_server.py"
+      ],
+      "disabled": true
+    },
+    "real-trainline": {
+      "command": "./venv/bin/python",
+      "args": [
+        "real_trainline_mcp_server.py"
+      ],
+      "disabled": false
+    },
+
+    "multi-hotels": {
+      "command": "./venv/bin/python",
+      "args": [
+        "multi_hotel_api_server.py"
+      ],
+      "disabled": false
+    }
+  }
+}

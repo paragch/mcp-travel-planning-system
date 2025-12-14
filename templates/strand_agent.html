@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧳 Complete Travel Planner</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .chat-container {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .capabilities {
+            margin-bottom: 20px;
+        }
+
+        .capabilities h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .server-group {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+        }
+
+        .server-name {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .tool-item {
+            padding: 5px 0;
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        .suggestions {
+            margin-top: 20px;
+        }
+
+        .suggestion-item {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 5px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .suggestion-item:hover {
+            background: #bbdefb;
+            transform: translateX(5px);
+        }
+
+        .quick-booking {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .booking-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .booking-tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            flex: 1;
+            text-align: center;
+        }
+
+        .booking-tab.active {
+            border-bottom-color: #3498db;
+            color: #3498db;
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .booking-form {
+            display: none;
+        }
+
+        .booking-form.active {
+            display: block;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-col {
+            flex: 1;
+        }
+
+        .form-col label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-col input, .form-col select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .quick-search-btn {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .quick-search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+
+        .travel-plan-btn {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+
+        .travel-plan-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        .suggestion-category {
+            margin-bottom: 15px;
+        }
+
+        .suggestion-category h4 {
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .travel-icons {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .travel-icon {
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .travel-icon:hover {
+            background: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .travel-icon i {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .travel-icon.trains i { color: #3498db; }
+        .travel-icon.hotels i { color: #e74c3c; }
+        .travel-icon.complete i { color: #f39c12; }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 500px;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message.agent {
+            justify-content: flex-start;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 15px;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .message.user .message-content {
+            background: #3498db;
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message.agent .message-content {
+            background: #ecf0f1;
+            color: #2c3e50;
+            border-bottom-left-radius: 5px;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+
+        .message-meta {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .chat-input {
+            padding: 20px;
+            border-top: 1px solid #e0e0e0;
+            background: white;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: #3498db;
+        }
+
+        .send-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .send-btn:hover {
+            background: #2980b9;
+            transform: scale(1.1);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            background: #95a5a6;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #7f8c8d;
+            transform: translateY(-2px);
+        }
+
+        .btn.primary {
+            background: #3498db;
+        }
+
+        .btn.primary:hover {
+            background: #2980b9;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .spinner {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3498db;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .status {
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .agent-response {
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .sidebar {
+                width: 100%;
+                order: 2;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1><i class="fas fa-suitcase-rolling"></i> Complete Travel Planner</h1>
+        <p>AI-powered travel planning with trains, hotels, and intelligent coordination</p>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <!-- Quick Booking Section -->
+            <div class="quick-booking">
+                <h3><i class="fas fa-bolt"></i> Quick Booking</h3>
+                
+                <div class="travel-icons">
+                    <div class="travel-icon trains" onclick="switchBookingTab('train')">
+                        <i class="fas fa-train"></i>
+                        <div>Trains</div>
+                    </div>
+                    <div class="travel-icon hotels" onclick="switchBookingTab('hotel')">
+                        <i class="fas fa-bed"></i>
+                        <div>Hotels</div>
+                    </div>
+                    <div class="travel-icon complete" onclick="switchBookingTab('travel')">
+                        <i class="fas fa-route"></i>
+                        <div>Complete Trip</div>
+                    </div>
+                </div>
+
+                <div class="booking-tabs">
+                    <div class="booking-tab active" onclick="switchBookingTab('train')">
+                        <i class="fas fa-train"></i> Trains
+                    </div>
+                    <div class="booking-tab" onclick="switchBookingTab('hotel')">
+                        <i class="fas fa-bed"></i> Hotels
+                    </div>
+                    <div class="booking-tab" onclick="switchBookingTab('travel')">
+                        <i class="fas fa-route"></i> Complete Trip
+                    </div>
+                </div>
+
+                <!-- Train Booking Form -->
+                <div id="trainForm" class="booking-form active">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label>From</label>
+                            <input type="text" id="trainFrom" placeholder="London">
+                        </div>
+                        <div class="form-col">
+                            <label>To</label>
+                            <input type="text" id="trainTo" placeholder="Manchester">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label>Date</label>
+                            <input type="date" id="trainDate">
+                        </div>
+                        <div class="form-col">
+                            <label>Time (Optional)</label>
+                            <input type="time" id="trainTime">
+                        </div>
+                    </div>
+                    <button class="quick-search-btn" onclick="quickTrainSearch()">
+                        <i class="fas fa-search"></i> Search Trains
+                    </button>
+                </div>
+
+                <!-- Hotel Booking Form -->
+                <div id="hotelForm" class="booking-form">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label>Destination</label>
+                            <input type="text" id="hotelDestination" placeholder="London">
+                        </div>
+                        <div class="form-col">
+                            <label>Guests</label>
+                            <select id="hotelGuests">
+                                <option value="1">1 Guest</option>
+                                <option value="2" selected>2 Guests</option>
+                                <option value="3">3 Guests</option>
+                                <option value="4">4 Guests</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label>Check-in</label>
+                            <input type="date" id="hotelCheckin">
+                        </div>
+                        <div class="form-col">
+                            <label>Check-out</label>
+                            <input type="date" id="hotelCheckout">
+                        </div>
+                    </div>
+                    <button class="quick-search-btn" onclick="quickHotelSearch()">
+                        <i class="fas fa-search"></i> Search Hotels
+                    </button>
+                </div>
+
+                <!-- Complete Travel Form -->
+                <div id="travelForm" class="booking-form">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label>From City</label>
+                            <input type="text" id="travelFrom" placeholder="London">
+                        </div>
+                        <div class="form-col">
+                            <label>To City</label>
+                            <input type="text" id="travelTo" placeholder="Paris">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label>Travel Date</label>
+                            <input type="date" id="travelDate">
+                        </div>
+                        <div class="form-col">
+                            <label>Return Date (Optional)</label>
+                            <input type="date" id="travelReturn">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label>Travelers</label>
+                            <select id="travelGuests">
+                                <option value="1">1 Person</option>
+                                <option value="2" selected>2 People</option>
+                                <option value="3">3 People</option>
+                                <option value="4">4 People</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="travel-plan-btn" onclick="planCompleteTrip()">
+                        <i class="fas fa-magic"></i> Plan Complete Trip
+                    </button>
+                </div>
+            </div>
+
+            <div class="capabilities">
+                <h3><i class="fas fa-cogs"></i> System Status</h3>
+                <div id="capabilitiesContent">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Loading capabilities...
+                    </div>
+                </div>
+            </div>
+
+            <div class="suggestions">
+                <h3><i class="fas fa-lightbulb"></i> Example Requests</h3>
+                <div id="suggestionsContent">
+                    <!-- Suggestions will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-container">
+            <div class="controls">
+                <button class="btn primary" onclick="loadCapabilities()">
+                    <i class="fas fa-sync"></i> Refresh
+                </button>
+                <button class="btn" onclick="clearHistory()">
+                    <i class="fas fa-trash"></i> Clear Chat
+                </button>
+                <button class="btn" onclick="showHelp()">
+                    <i class="fas fa-question"></i> Help
+                </button>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="message agent">
+                    <div class="message-content">
+                        <div class="agent-response">🧳 Welcome to your Complete Travel Planner! I can help you with:
+
+🚂 **Train Bookings** (UK Rail Network)
+• Live train times and prices
+• Station information and departures
+• Journey planning with connections
+
+🏨 **Hotel Bookings** (UK Hotel Chains)  
+• Hotel search by destination
+• Hotels near landmarks/stations
+• Price comparisons across cities
+
+🎯 **Complete Travel Planning**
+• End-to-end trip coordination
+• Trains + Hotels in one request
+• Multi-destination comparisons
+
+Try the quick booking forms on the left, or ask me naturally like:
+"Plan a trip from London to Edinburgh on December 20, returning December 22"</div>
+                        <div class="message-time">Travel Assistant • Just now</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input">
+                <div class="input-group">
+                    <input type="text" id="messageInput" placeholder="Ask me anything..." onkeypress="handleKeyPress(event)">
+                    <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isLoading = false;
+
+        // Load capabilities on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default dates
+            const today = new Date().toISOString().split('T')[0];
+            const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+            
+            document.getElementById('trainDate').value = today;
+            document.getElementById('hotelCheckin').value = today;
+            document.getElementById('hotelCheckout').value = tomorrow;
+            document.getElementById('travelDate').value = today;
+            
+            loadCapabilities();
+            loadSuggestions();
+        });
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter' && !isLoading) {
+                sendMessage();
+            }
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (!message || isLoading) return;
+
+            // Add user message to chat
+            addMessage(message, 'user');
+            input.value = '';
+            
+            // Show loading
+            setLoading(true);
+            
+            try {
+                const response = await fetch('/api/process', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    addMessage(data.response, 'agent', {
+                        timestamp: data.timestamp,
+                        history: data.history
+                    });
+                } else {
+                    addMessage(`Error: ${data.error}`, 'agent', null, true);
+                }
+            } catch (error) {
+                addMessage(`Network error: ${error.message}`, 'agent', null, true);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        function addMessage(content, sender, meta = null, isError = false) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString();
+            
+            let metaInfo = '';
+            if (meta && meta.history) {
+                const lastEntry = meta.history[meta.history.length - 1];
+                if (lastEntry && lastEntry.tool_used) {
+                    metaInfo = `<div class="message-meta">
+                        <i class="fas fa-cog"></i> Used: ${lastEntry.tool_used}
+                        ${lastEntry.parameters ? `<br><i class="fas fa-list"></i> Params: ${JSON.stringify(lastEntry.parameters)}` : ''}
+                    </div>`;
+                }
+            }
+            
+            messageDiv.innerHTML = `
+                <div class="message-content ${isError ? 'error' : ''}">
+                    <div class="agent-response">${content}</div>
+                    <div class="message-time">${sender === 'user' ? 'You' : 'Agent'} • ${timeStr}</div>
+                    ${metaInfo}
+                </div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function setLoading(loading) {
+            isLoading = loading;
+            const sendBtn = document.getElementById('sendBtn');
+            const input = document.getElementById('messageInput');
+            
+            sendBtn.disabled = loading;
+            input.disabled = loading;
+            
+            if (loading) {
+                sendBtn.innerHTML = '<div class="spinner"></div>';
+                
+                // Add loading message
+                const messagesContainer = document.getElementById('chatMessages');
+                const loadingDiv = document.createElement('div');
+                loadingDiv.className = 'message agent';
+                loadingDiv.id = 'loadingMessage';
+                loadingDiv.innerHTML = `
+                    <div class="message-content">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            Processing your request...
+                        </div>
+                    </div>
+                `;
+                messagesContainer.appendChild(loadingDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            } else {
+                sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i>';
+                
+                // Remove loading message
+                const loadingMsg = document.getElementById('loadingMessage');
+                if (loadingMsg) {
+                    loadingMsg.remove();
+                }
+            }
+        }
+
+        async function loadCapabilities() {
+            try {
+                const response = await fetch('/api/capabilities');
+                const data = await response.json();
+                
+                const container = document.getElementById('capabilitiesContent');
+                
+                if (data.success) {
+                    let html = `<div class="status success">
+                        <i class="fas fa-check"></i> ${data.total_servers} servers, ${data.total_tools} tools available
+                    </div>`;
+                    
+                    for (const [serverName, tools] of Object.entries(data.servers)) {
+                        html += `<div class="server-group">
+                            <div class="server-name">
+                                <i class="fas fa-server"></i> ${serverName}
+                            </div>`;
+                        
+                        tools.forEach(tool => {
+                            html += `<div class="tool-item">
+                                <i class="fas fa-tool"></i> ${tool.name}: ${tool.description}
+                            </div>`;
+                        });
+                        
+                        html += '</div>';
+                    }
+                    
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = `<div class="status error">
+                        <i class="fas fa-exclamation-triangle"></i> ${data.error}
+                    </div>`;
+                }
+            } catch (error) {
+                document.getElementById('capabilitiesContent').innerHTML = `
+                    <div class="status error">
+                        <i class="fas fa-exclamation-triangle"></i> Failed to load capabilities
+                    </div>`;
+            }
+        }
+
+        async function loadSuggestions() {
+            try {
+                const response = await fetch('/api/suggest');
+                const data = await response.json();
+                
+                if (data.success) {
+                    const container = document.getElementById('suggestionsContent');
+                    let html = '';
+                    
+                    // Group suggestions by category
+                    for (const [category, suggestions] of Object.entries(data.suggestions)) {
+                        html += `<div class="suggestion-category">
+                            <h4><i class="fas fa-${getCategoryIcon(category)}"></i> ${category.toUpperCase()}</h4>`;
+                        
+                        suggestions.forEach(suggestion => {
+                            html += `<div class="suggestion-item" onclick="useSuggestion('${suggestion}')">
+                                <i class="fas fa-comment"></i> ${suggestion}
+                            </div>`;
+                        });
+                        
+                        html += '</div>';
+                    }
+                    
+                    container.innerHTML = html;
+                }
+            } catch (error) {
+                console.error('Failed to load suggestions:', error);
+            }
+        }
+
+        function getCategoryIcon(category) {
+            const icons = {
+                'travel': 'route',
+                'trains': 'train',
+                'hotels': 'bed',
+                'general': 'comment'
+            };
+            return icons[category] || 'comment';
+        }
+
+        // Booking tab switching
+        function switchBookingTab(tabName) {
+            // Hide all forms
+            document.querySelectorAll('.booking-form').forEach(form => {
+                form.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.booking-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected form and activate tab
+            document.getElementById(tabName + 'Form').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Quick train search
+        async function quickTrainSearch() {
+            const from = document.getElementById('trainFrom').value.trim();
+            const to = document.getElementById('trainTo').value.trim();
+            const date = document.getElementById('trainDate').value;
+            const time = document.getElementById('trainTime').value;
+            
+            if (!from || !to || !date) {
+                alert('Please fill in From, To, and Date fields');
+                return;
+            }
+            
+            setLoading(true);
+            
+            try {
+                const response = await fetch('/api/quick_search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        type: 'train',
+                        from: from,
+                        to: to,
+                        date: date,
+                        time: time
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    addMessage(data.query, 'user');
+                    addMessage(data.response, 'agent', {
+                        timestamp: data.timestamp,
+                        history: data.history
+                    });
+                } else {
+                    addMessage(`Error: ${data.error}`, 'agent', null, true);
+                }
+            } catch (error) {
+                addMessage(`Network error: ${error.message}`, 'agent', null, true);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        // Quick hotel search
+        async function quickHotelSearch() {
+            const destination = document.getElementById('hotelDestination').value.trim();
+            const checkin = document.getElementById('hotelCheckin').value;
+            const checkout = document.getElementById('hotelCheckout').value;
+            const guests = document.getElementById('hotelGuests').value;
+            
+            console.log('Hotel search inputs:', { destination, checkin, checkout, guests });
+            
+            if (!destination || !checkin || !checkout) {
+                alert('Please fill in Destination, Check-in, and Check-out fields');
+                return;
+            }
+            
+            setLoading(true);
+            
+            try {
+                const response = await fetch('/api/quick_search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        type: 'hotel',
+                        destination: destination,
+                        checkin: checkin,
+                        checkout: checkout,
+                        guests: parseInt(guests)
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    addMessage(data.query, 'user');
+                    addMessage(data.response, 'agent', {
+                        timestamp: data.timestamp,
+                        history: data.history
+                    });
+                } else {
+                    addMessage(`Error: ${data.error}`, 'agent', null, true);
+                }
+            } catch (error) {
+                addMessage(`Network error: ${error.message}`, 'agent', null, true);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        // Complete trip planning
+        async function planCompleteTrip() {
+            const fromCity = document.getElementById('travelFrom').value.trim();
+            const toCity = document.getElementById('travelTo').value.trim();
+            const travelDate = document.getElementById('travelDate').value;
+            const returnDate = document.getElementById('travelReturn').value;
+            const guests = document.getElementById('travelGuests').value;
+            
+            if (!fromCity || !toCity || !travelDate) {
+                alert('Please fill in From City, To City, and Travel Date fields');
+                return;
+            }
+            
+            setLoading(true);
+            
+            try {
+                const response = await fetch('/api/travel_plan', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        from_city: fromCity,
+                        to_city: toCity,
+                        travel_date: travelDate,
+                        return_date: returnDate || null,
+                        guests: parseInt(guests)
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    addMessage(data.query, 'user');
+                    addMessage(data.response, 'agent', {
+                        timestamp: data.timestamp,
+                        history: data.history
+                    });
+                } else {
+                    addMessage(`Error: ${data.error}`, 'agent', null, true);
+                }
+            } catch (error) {
+                addMessage(`Network error: ${error.message}`, 'agent', null, true);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        function useSuggestion(suggestion) {
+            document.getElementById('messageInput').value = suggestion;
+            sendMessage();
+        }
+
+        async function clearHistory() {
+            try {
+                await fetch('/api/clear_history', { method: 'POST' });
+                document.getElementById('chatMessages').innerHTML = `
+                    <div class="message agent">
+                        <div class="message-content">
+                            <div class="agent-response">🤖 Chat history cleared! How can I help you?</div>
+                            <div class="message-time">System • Just now</div>
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Failed to clear history:', error);
+            }
+        }
+
+        function showHelp() {
+            addMessage(`🧳 Complete Travel Planner Help
+
+I'm your AI travel assistant that coordinates trains, hotels, and complete trip planning:
+
+🚂 TRAIN BOOKINGS (UK Rail Network):
+• "Find trains from London to Manchester today"
+• "Show departures from Birmingham"
+• "Get live train times to Edinburgh"
+• "Find station codes for London"
+
+🏨 HOTEL BOOKINGS (UK Hotel Chains):
+• "Find hotels in Paris for December 20-22 for 2 guests"
+• "Show me hotels near King's Cross station"
+• "Compare hotel prices in London, Paris, and Berlin"
+• "Find budget hotels in Rome for 3 nights"
+
+🎯 COMPLETE TRAVEL PLANNING:
+• "Plan a trip from London to Edinburgh on December 20, returning December 22"
+• "Find trains to Manchester and hotels there for tonight"
+• "Plan a weekend in Paris with trains and accommodation"
+
+💡 HOW TO USE:
+• Use the quick booking forms on the left for structured searches
+• Type naturally in the chat for complex requests
+• I automatically coordinate between train and hotel services
+• I extract dates, destinations, and preferences from your messages
+
+🔧 SMART FEATURES:
+• Multi-server coordination (trains + hotels)
+• Natural language understanding
+• Automatic parameter extraction
+• Real-time API integration (when configured)
+• Intelligent routing to appropriate services
+
+Try the quick forms or ask me anything about travel!`, 'agent');
+        }
+    </script>
+</body>
+</html>
