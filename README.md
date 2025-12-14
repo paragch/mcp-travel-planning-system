@@ -100,17 +100,170 @@ KiroPythonProject/
 ./venv/bin/python trainline_client.py
 ```
 
-## 🔧 API Configuration
+## 🔧 API Configuration & Credentials
 
-### For Live Train Data (Optional)
-1. Register at [Transport API](https://transportapi.com) (free tier available)
-2. Run: `./venv/bin/python setup_real_apis.py`
-3. Enter your API credentials
+The system works with **demo data** out of the box, but you can configure **real APIs** for live data:
 
-### For Live Hotel Data (Optional)
-1. Register at RapidAPI for Hotels.com access
-2. Run: `./venv/bin/python setup_rapidapi_hotels.py`
-3. Configure your API key
+### 🚂 Live Train Data - Transport API (Recommended)
+
+**Free Tier:** 1,000 requests/day
+
+#### Setup Steps:
+1. **Register:** Visit [transportapi.com](https://transportapi.com)
+2. **Sign Up:** Click "Sign Up" (completely free)
+3. **Verify Email:** Check your inbox and verify
+4. **Get Credentials:** Go to "My Account" → "API Keys"
+5. **Copy:** Your App ID and API Key
+
+#### Required Credentials:
+- **App ID:** Format like `d948d452` 
+- **API Key:** Format like `55xxxxxxxxxxxxxxxxxxxxxxxxxxxxb2`
+
+#### Configuration:
+```bash
+# Run the setup script
+./venv/bin/python setup_real_apis.py
+
+# Enter your credentials when prompted:
+# App ID: d948d452
+# API Key: 55xxxxxxxxxxxxxxxxxxxxxxxxxxxxb2
+```
+
+#### What You Get:
+- ✅ **Real train times** and delays
+- ✅ **Live departure boards** 
+- ✅ **Actual pricing** information
+- ✅ **Platform numbers** and operators
+- ✅ **Journey planning** with connections
+
+---
+
+### 🏨 Live Hotel Data - RapidAPI (Optional)
+
+**Free Tier:** 100 requests/month
+
+#### Setup Steps:
+1. **Register:** Visit [rapidapi.com/auth/sign-up](https://rapidapi.com/auth/sign-up)
+2. **Subscribe:** Go to [Booking.com API](https://rapidapi.com/apidojo/api/booking)
+3. **Choose Plan:** Select "Basic" (FREE)
+4. **Get Key:** Copy your X-RapidAPI-Key from dashboard
+
+#### Required Credentials:
+- **RapidAPI Key:** Format like `abc123def456ghi789...`
+
+#### Configuration:
+```bash
+# Run the setup script
+./venv/bin/python setup_rapidapi_hotels.py
+
+# Enter your key when prompted:
+# RapidAPI Key: abc123def456ghi789...
+```
+
+#### What You Get:
+- ✅ **Real hotel availability** from Booking.com
+- ✅ **Live pricing** and deals
+- ✅ **Hotel photos** and descriptions
+- ✅ **Guest reviews** and ratings
+- ✅ **Booking links** to official sites
+
+---
+
+### 🆓 No API Keys? No Problem!
+
+The system provides **excellent functionality** without any API setup:
+
+#### Train Data (Demo Mode):
+- ✅ **Realistic UK routes** and timetables
+- ✅ **Popular destinations** and journey planning
+- ✅ **Station information** and facilities
+- ✅ **Sample pricing** based on real routes
+
+#### Hotel Data (UK Chains Database):
+- ✅ **Real UK hotel chains** (Premier Inn, Holiday Inn, etc.)
+- ✅ **Realistic pricing** (£50-£150/night)
+- ✅ **Real phone numbers** and websites
+- ✅ **Accurate locations** for all UK cities
+- ✅ **Hotel amenities** and ratings
+
+---
+
+### 🔐 API Key Security
+
+#### Best Practices:
+- **Never commit** API keys to version control
+- **Use environment variables** for production
+- **Rotate keys** regularly
+- **Monitor usage** to avoid rate limits
+
+#### Environment Variables (Production):
+```bash
+# Add to your .env file (not committed to Git)
+TRANSPORT_API_KEY=your_transport_api_key
+TRANSPORT_APP_ID=your_transport_app_id
+RAPIDAPI_KEY=your_rapidapi_key
+```
+
+#### Rate Limits:
+- **Transport API:** 1,000 requests/day (free)
+- **RapidAPI Hotels:** 100 requests/month (free)
+- **System caching:** Reduces API calls automatically
+
+---
+
+### 🧪 Testing Your API Setup
+
+#### Verify Transport API:
+```bash
+# Test live train data
+./venv/bin/python -c "
+from real_trainline_mcp_server import RealTrainlineMCPServer
+server = RealTrainlineMCPServer()
+print('Transport API:', 'Configured' if server.transport_api_key != '1' else 'Demo Mode')
+"
+```
+
+#### Verify RapidAPI Hotels:
+```bash
+# Test hotel API
+./venv/bin/python demo_hotel_search.py
+# Look for "RapidAPI: ✅ Configured" in output
+```
+
+#### Web Interface Test:
+1. Start: `./venv/bin/python strand_agent_web.py`
+2. Open: http://localhost:5002
+3. Try: *"Find trains from London to Manchester today"*
+4. Look for **real times** vs **demo data**
+
+---
+
+### 💡 API Alternatives
+
+If the recommended APIs are unavailable:
+
+#### Train Data Alternatives:
+- **National Rail Enquiries API** (UK official)
+- **Trainline Partner API** (requires partnership)
+- **OpenRailData** (real-time feeds)
+
+#### Hotel Data Alternatives:
+- **Expedia Partner Solutions** (free tier)
+- **Hotels.com API** (via Expedia Group)
+- **Amadeus Hotel API** (when available)
+- **Foursquare Places API** (location data)
+
+---
+
+### 🚀 Production Deployment
+
+For production use with APIs:
+
+1. **Set up monitoring** for API usage
+2. **Implement caching** to reduce API calls
+3. **Add fallback** to demo data if APIs fail
+4. **Use load balancing** for high traffic
+5. **Monitor rate limits** and upgrade plans as needed
 
 ## 🧠 System Capabilities
 
@@ -193,6 +346,27 @@ KiroPythonProject/
 - Check individual README files for detailed documentation
 - Review test scripts for usage examples
 - Use interactive mode for debugging: `./venv/bin/python mcp_strand_agent.py`
+
+## 🔑 Quick API Reference
+
+### Transport API (Trains)
+- **Website:** https://transportapi.com
+- **Free Tier:** 1,000 requests/day
+- **Setup:** `./venv/bin/python setup_real_apis.py`
+- **Credentials:** App ID + API Key
+
+### RapidAPI Hotels
+- **Website:** https://rapidapi.com/apidojo/api/booking
+- **Free Tier:** 100 requests/month  
+- **Setup:** `./venv/bin/python setup_rapidapi_hotels.py`
+- **Credentials:** X-RapidAPI-Key
+
+### Demo Mode (No APIs)
+- **Trains:** Realistic UK routes and timetables
+- **Hotels:** Real UK hotel chains with contact info
+- **Setup:** None required - works immediately!
+
+---
 
 ## 📄 License
 
