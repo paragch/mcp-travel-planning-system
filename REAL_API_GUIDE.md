@@ -125,7 +125,7 @@ echo '{"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": "ge
 | London Victoria | VIC | Edinburgh Waverley | EDB |
 | London Waterloo | WAT | Glasgow Central | GLC |
 | London Euston | EUS | Liverpool Lime Street | LIV |
-| London Liverpool St | LST | Leeds | LDS |
+| London Liverpool St | LST | <Location A> | LDS |
 
 ## 🌐 Alternative APIs
 

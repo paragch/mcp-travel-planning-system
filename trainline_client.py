@@ -103,7 +103,7 @@ class TrainlineUI:
         self.client = TrainlineMCPClient()
         self.uk_stations = [
             "London", "Manchester", "Birmingham", "Liverpool", "Edinburgh", 
-            "Glasgow", "Bristol", "Leeds", "Sheffield", "Newcastle",
+            "Glasgow", "Bristol", "<Location A>", "Sheffield", "Newcastle",
             "Cardiff", "Nottingham", "Leicester", "Coventry", "Bradford",
             "Oxford", "Cambridge", "Brighton", "Portsmouth", "Southampton"
         ]
@@ -230,7 +230,7 @@ class TrainlineUI:
             ("London", "Birmingham"),
             ("Manchester", "Liverpool"),
             ("London", "Bristol"),
-            ("Birmingham", "Leeds"),
+            ("Birmingham", "<Location A>"),
             ("Custom route", "")
         ]
         

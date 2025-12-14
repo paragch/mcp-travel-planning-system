@@ -168,7 +168,7 @@ def api_quick_routes():
         {"from": "London", "to": "Birmingham", "description": "London to Birmingham"},
         {"from": "Manchester", "to": "Liverpool", "description": "Manchester to Liverpool"},
         {"from": "London", "to": "Bristol", "description": "London to Bristol"},
-        {"from": "Birmingham", "to": "Leeds", "description": "Birmingham to Leeds"},
+        {"from": "Birmingham", "to": "<Location A>", "description": "Birmingham to <Location A>"},
         {"from": "London", "to": "Glasgow", "description": "London to Glasgow"},
         {"from": "Newcastle", "to": "London", "description": "Newcastle to London"},
         {"from": "Cardiff", "to": "London", "description": "Cardiff to London"},

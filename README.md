@@ -37,16 +37,16 @@ Open: **http://localhost:5002**
 ### 3. Try Example Queries
 ```bash
 # Round trip planning
-"Plan a complete round trip from Leeds to East Croydon on 15/12/2025, returning 16/12/2025"
+"Plan a complete round trip from <Location A> to <Location B> on 15/12/2025, returning 16/12/2025"
 
 # Hotel search
-"Find hotels in East Croydon for December 15-16, 2025 for 1 guest"
+"Find hotels in <Location B> for December 15-16, 2025 for 1 guest"
 
 # Train search
 "Find trains from London to Manchester today"
 
 # Complex multi-intent
-"I want to catch a train from Leeds at 17:40 for London Kings Cross and stay at Travelodge in East Croydon"
+"I want to catch a train from <Location A> at 17:40 for London Kings Cross and stay at Travelodge in <Location B>"
 ```
 
 ## 📁 Project Structure
@@ -87,7 +87,7 @@ KiroPythonProject/
 ### Web Interface (Recommended)
 1. Start: `./venv/bin/python strand_agent_web.py`
 2. Open: http://localhost:5002
-3. Chat naturally: *"Plan a round trip from Leeds to East Croydon"*
+3. Chat naturally: *"Plan a round trip from <Location A> to <Location B>"*
 
 ### Command Line
 ```bash
@@ -192,7 +192,7 @@ The system provides **excellent functionality** without any API setup:
 - ✅ **Real UK hotel chains** (Premier Inn, Holiday Inn Express, Ibis, Travelodge)
 - ✅ **Sample pricing** (simulated data for demonstration purposes)
 - ✅ **Real contact information** (phone numbers, websites)
-- ✅ **Accurate locations** for all UK cities including East Croydon
+- ✅ **Accurate locations** for all UK cities including <Location B>
 - ✅ **Hotel amenities** and sample ratings
 
 ---
@@ -242,7 +242,7 @@ print('Transport API:', 'Configured' if server.transport_api_key != '1' else 'De
 ./venv/bin/python -c "
 from multi_hotel_api_server import MultiHotelAPIServer
 server = MultiHotelAPIServer()
-result = server.search_hotels_multi('East Croydon', '2025-12-15', '2025-12-16', 1)
+result = server.search_hotels_multi('<Location B>', '2025-12-15', '2025-12-16', 1)
 print('Hotel search working:', 'Premier Inn' in result)
 "
 ```

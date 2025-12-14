@@ -253,14 +253,14 @@ class MCPStrandAgent:
             elif "from_station" in param_name:
                 # Extract departure station
                 from_patterns = [
-                    r"from\s+([a-zA-Z\s]+?)\s+to",  # "from Leeds to London"
-                    r"from\s+([a-zA-Z\s]+?)\s+for",  # "from Leeds for London"  
-                    r"from\s+([a-zA-Z\s]+?)\s+at",  # "from Leeds at 17:40"
-                    r"trains?\s+from\s+([a-zA-Z\s]+?)\s+to",  # "trains from Leeds to London"
-                    r"trains?\s+from\s+([a-zA-Z\s]+?)\s+for",  # "trains from Leeds for London"
-                    r"between\s+([a-zA-Z\s]+?)\s+and",  # "between Leeds and London"
-                    r"catch.*?train\s+from\s+([a-zA-Z\s]+?)\s+at",  # "catch a train from Leeds at"
-                    r"train\s+from\s+([a-zA-Z\s]+?)\s+at",  # "train from Leeds at"
+                    r"from\s+([a-zA-Z\s]+?)\s+to",  # "from <Location A> to London"
+                    r"from\s+([a-zA-Z\s]+?)\s+for",  # "from <Location A> for London"  
+                    r"from\s+([a-zA-Z\s]+?)\s+at",  # "from <Location A> at 17:40"
+                    r"trains?\s+from\s+([a-zA-Z\s]+?)\s+to",  # "trains from <Location A> to London"
+                    r"trains?\s+from\s+([a-zA-Z\s]+?)\s+for",  # "trains from <Location A> for London"
+                    r"between\s+([a-zA-Z\s]+?)\s+and",  # "between <Location A> and London"
+                    r"catch.*?train\s+from\s+([a-zA-Z\s]+?)\s+at",  # "catch a train from <Location A> at"
+                    r"train\s+from\s+([a-zA-Z\s]+?)\s+at",  # "train from <Location A> at"
                 ]
                 
                 for pattern in from_patterns:
@@ -275,8 +275,8 @@ class MCPStrandAgent:
                 # Extract arrival station
                 to_patterns = [
                     r"for\s+([a-zA-Z\s\-]+?)(?:\s+and|\s+want|\s*$)",  # "for London Kings Cross and want" - MOST SPECIFIC FIRST
-                    r"from\s+[a-zA-Z\s]+?\s+to\s+([a-zA-Z\s]+?)(?:\s+on|\s+at|\s+after|\s*$)",  # "from Leeds to London on"
-                    r"between\s+[a-zA-Z\s]+?\s+and\s+([a-zA-Z\s]+?)(?:\s+on|\s+at|\s+after|\s*$)",  # "between Leeds and London Kings Cross"
+                    r"from\s+[a-zA-Z\s]+?\s+to\s+([a-zA-Z\s]+?)(?:\s+on|\s+at|\s+after|\s*$)",  # "from <Location A> to London on"
+                    r"between\s+[a-zA-Z\s]+?\s+and\s+([a-zA-Z\s]+?)(?:\s+on|\s+at|\s+after|\s*$)",  # "between <Location A> and London Kings Cross"
                     r"to\s+([a-zA-Z\s]+?)(?:\s+on|\s+at|\s+after|\s+and|\s*$)",  # "to London on" - LEAST SPECIFIC LAST
                 ]
                 
@@ -292,10 +292,10 @@ class MCPStrandAgent:
             elif "station" in param_name or "station" in param_desc:
                 # Try patterns to extract station names
                 station_patterns = [
-                    r"from\s+([a-zA-Z\s]+?)(?:\s+to|\s+station|\s*$)",  # "from East Croydon"
-                    r"to\s+([a-zA-Z\s]+?)(?:\s+on|\s+station|\s*$)",    # "to East Croydon"
-                    r"trains?\s+from\s+([a-zA-Z\s]+?)(?:\s+to|\s*$)",   # "trains from East Croydon"
-                    r"trains?\s+to\s+([a-zA-Z\s]+?)(?:\s+on|\s*$)",     # "trains to East Croydon"
+                    r"from\s+([a-zA-Z\s]+?)(?:\s+to|\s+station|\s*$)",  # "from <Location B>"
+                    r"to\s+([a-zA-Z\s]+?)(?:\s+on|\s+station|\s*$)",    # "to <Location B>"
+                    r"trains?\s+from\s+([a-zA-Z\s]+?)(?:\s+to|\s*$)",   # "trains from <Location B>"
+                    r"trains?\s+to\s+([a-zA-Z\s]+?)(?:\s+on|\s*$)",     # "trains to <Location B>"
                 ]
                 
                 for pattern in station_patterns:
@@ -310,9 +310,9 @@ class MCPStrandAgent:
                 if param_name not in parameters:
                     uk_stations = [
                         "london", "manchester", "birmingham", "liverpool", "edinburgh",
-                        "glasgow", "bristol", "leeds", "sheffield", "newcastle",
+                        "glasgow", "bristol", "<location a>", "sheffield", "newcastle",
                         "cardiff", "nottingham", "oxford", "cambridge", "brighton",
-                        "croydon", "east croydon", "south croydon", "west croydon"
+                        "croydon", "<location b>", "south croydon", "west croydon"
                     ]
                     
                     for station in uk_stations:
@@ -324,13 +324,13 @@ class MCPStrandAgent:
             elif param_name == "destination" or "destination" in param_desc:
                 # Try multiple patterns to extract destination
                 destination_patterns = [
-                    r"hotels?\s+in\s+([a-zA-Z\s]+?)(?:\s+for|\s+on|\s*$)",  # "hotels in East Croydon"
-                    r"find\s+hotels?\s+in\s+([a-zA-Z\s]+?)(?:\s+for|\s+on|\s*$)",  # "find hotels in East Croydon"
-                    r"search\s+hotels?\s+in\s+([a-zA-Z\s]+?)(?:\s+for|\s+on|\s*$)",  # "search hotels in East Croydon"
-                    r"accommodation\s+in\s+([a-zA-Z\s]+?)(?:\s+for|\s+on|\s*$)",  # "accommodation in East Croydon"
-                    r"stay\s+in\s+([a-zA-Z\s]+?)(?:\s+for|\s+on|\s*$)",  # "stay in East Croydon"
-                    r"stay\s+at\s+\w+\s+in\s+([a-zA-Z\s]+?)(?:\.|$)",  # "stay at Travelodge in East Croydon"
-                    r"travelodge\s+in\s+([a-zA-Z\s]+?)(?:\.|$)",  # "Travelodge in East Croydon"
+                    r"hotels?\s+in\s+([a-zA-Z\s]+?)(?:\s+for|\s+on|\s*$)",  # "hotels in <Location B>"
+                    r"find\s+hotels?\s+in\s+([a-zA-Z\s]+?)(?:\s+for|\s+on|\s*$)",  # "find hotels in <Location B>"
+                    r"search\s+hotels?\s+in\s+([a-zA-Z\s]+?)(?:\s+for|\s+on|\s*$)",  # "search hotels in <Location B>"
+                    r"accommodation\s+in\s+([a-zA-Z\s]+?)(?:\s+for|\s+on|\s*$)",  # "accommodation in <Location B>"
+                    r"stay\s+in\s+([a-zA-Z\s]+?)(?:\s+for|\s+on|\s*$)",  # "stay in <Location B>"
+                    r"stay\s+at\s+\w+\s+in\s+([a-zA-Z\s]+?)(?:\.|$)",  # "stay at Travelodge in <Location B>"
+                    r"travelodge\s+in\s+([a-zA-Z\s]+?)(?:\.|$)",  # "Travelodge in <Location B>"
                 ]
                 
                 for pattern in destination_patterns:
@@ -347,8 +347,8 @@ class MCPStrandAgent:
                     common_destinations = [
                         "london", "paris", "berlin", "rome", "madrid", "amsterdam",
                         "barcelona", "vienna", "prague", "budapest", "manchester",
-                        "birmingham", "edinburgh", "glasgow", "bristol", "leeds",
-                        "croydon", "east croydon", "south croydon", "new york", 
+                        "birmingham", "edinburgh", "glasgow", "bristol", "<location a>",
+                        "croydon", "<location b>", "south croydon", "new york", 
                         "tokyo", "sydney", "dubai", "singapore", "brighton",
                         "cambridge", "oxford", "nottingham", "sheffield", "cardiff"
                     ]
@@ -384,8 +384,8 @@ class MCPStrandAgent:
                     common_locations = [
                         "london", "paris", "berlin", "rome", "madrid", "amsterdam",
                         "barcelona", "vienna", "prague", "budapest", "manchester",
-                        "birmingham", "edinburgh", "glasgow", "bristol", "leeds",
-                        "croydon", "east croydon", "south croydon", "new york", 
+                        "birmingham", "edinburgh", "glasgow", "bristol", "<location a>",
+                        "croydon", "<location b>", "south croydon", "new york", 
                         "tokyo", "sydney", "dubai", "singapore", "brighton",
                         "cambridge", "oxford", "nottingham", "sheffield", "cardiff"
                     ]
@@ -706,41 +706,41 @@ class MCPStrandAgent:
                 to_city = match.group(2).strip().title()
                 break
         
-        # Process outbound journey (with connection logic for Leeds->East Croydon)
+        # Process outbound journey (with connection logic for <Location A>-><Location B>)
         if from_city and to_city and outbound_date:
-            # Handle Leeds to East Croydon via London Kings Cross
-            if "leeds" in from_city.lower() and "croydon" in to_city.lower():
-                # Get Leeds to London Kings Cross
-                outbound_query = f"Find trains from Leeds to London Kings Cross on {outbound_date.replace('-', '/')}"
+            # Handle <Location A> to <Location B> via London Kings Cross
+            if "<location a>" in from_city.lower() and "croydon" in to_city.lower():
+                # Get <Location A> to London Kings Cross
+                outbound_query = f"Find trains from <Location A> to London Kings Cross on {outbound_date.replace('-', '/')}"
                 train_tools = [tool for tool in self.find_relevant_tools(outbound_query) 
                               if "train" in tool["name"].lower()]
                 if train_tools:
                     train_tool = train_tools[0]
                     train_params = {
-                        "from_station": "Leeds",
+                        "from_station": "<Location A>",
                         "to_station": "London Kings Cross", 
                         "date": outbound_date
                     }
                     train_result = self.execute_tool(train_tool["name"], train_params)
-                    results.append(f"🚂 OUTBOUND JOURNEY ({outbound_date}):\nLeeds → London Kings Cross\n{train_result}")
+                    results.append(f"🚂 OUTBOUND JOURNEY ({outbound_date}):\n<Location A> → London Kings Cross\n{train_result}")
                     
                     # Add connection info
-                    results.append("🚇 CONNECTION:\nLondon Kings Cross → East Croydon\n• Take Northern line to London Bridge\n• Change to Southern Rail to East Croydon\n• Journey time: 45-60 minutes")
+                    results.append("🚇 CONNECTION:\nLondon Kings Cross → <Location B>\n• Take Northern line to London Bridge\n• Change to Southern Rail to <Location B>\n• Journey time: 45-60 minutes")
             
-            # Handle return journey (East Croydon to Leeds via London Kings Cross)
+            # Handle return journey (<Location B> to <Location A> via London Kings Cross)
             if return_date:
-                return_query = f"Find trains from London Kings Cross to Leeds on {return_date.replace('-', '/')}"
+                return_query = f"Find trains from London Kings Cross to <Location A> on {return_date.replace('-', '/')}"
                 train_tools = [tool for tool in self.find_relevant_tools(return_query) 
                               if "train" in tool["name"].lower()]
                 if train_tools:
                     train_tool = train_tools[0]
                     return_params = {
                         "from_station": "London Kings Cross",
-                        "to_station": "Leeds",
+                        "to_station": "<Location A>",
                         "date": return_date
                     }
                     return_result = self.execute_tool(train_tool["name"], return_params)
-                    results.append(f"🚂 RETURN JOURNEY ({return_date}):\nLondon Kings Cross → Leeds\n{return_result}")
+                    results.append(f"🚂 RETURN JOURNEY ({return_date}):\nLondon Kings Cross → <Location A>\n{return_result}")
         
         # Process hotel request
         if "hotel" in user_lower or "stay" in user_lower or "accommodation" in user_lower:

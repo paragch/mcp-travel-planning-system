@@ -76,14 +76,14 @@ The agent understands natural language and routes to appropriate servers:
 "Get station info for King's Cross"
 
 # Hotel requests → Hotel server
-"Find hotels in East Croydon for December 15-16 for 1 guest"
+"Find hotels in <Location B> for December 15-16 for 1 guest"
 "Show me hotels near King's Cross station"
 
 # Multi-intent requests (Train + Hotel)
-"I want to catch a train from Leeds at 17:40 for London Kings Cross and stay at Travelodge in East Croydon"
+"I want to catch a train from <Location A> at 17:40 for London Kings Cross and stay at Travelodge in <Location B>"
 
 # Round trip requests (Complete travel planning)
-"Plan a complete round trip from Leeds to East Croydon on 15/12/2025, returning 16/12/2025 for 1 person"
+"Plan a complete round trip from <Location A> to <Location B> on 15/12/2025, returning 16/12/2025 for 1 person"
 ```
 
 ### Web Interface Features
@@ -110,10 +110,10 @@ all_tools = agent.get_all_tools()
 ### 2. Advanced Natural Language Processing
 ```python
 # Extracts complex parameters from natural language
-user_input = "I want to catch a train from Leeds at 17:40 for London Kings Cross"
+user_input = "I want to catch a train from <Location A> at 17:40 for London Kings Cross"
 parameters = agent.extract_parameters(user_input, tool_info)
 # Returns: {
-#   "from_station": "Leeds", 
+#   "from_station": "<Location A>", 
 #   "to_station": "London Kings Cross",
 #   "time": "17:40"
 # }
@@ -122,14 +122,14 @@ parameters = agent.extract_parameters(user_input, tool_info)
 ### 3. Multi-Intent Detection
 ```python
 # Detects when users ask for multiple services in one request
-user_input = "Find trains from Leeds to London and hotels in East Croydon"
+user_input = "Find trains from <Location A> to London and hotels in <Location B>"
 is_multi_intent = agent.detect_multi_intent(user_input)  # Returns: True
 ```
 
 ### 4. Round Trip Planning
 ```python
 # Handles complete travel planning with outbound/return journeys
-user_input = "Plan a round trip from Leeds to East Croydon on 15/12/2025, returning 16/12/2025"
+user_input = "Plan a round trip from <Location A> to <Location B> on 15/12/2025, returning 16/12/2025"
 is_round_trip = agent.detect_round_trip(user_input)  # Returns: True
 ```
 
@@ -144,8 +144,8 @@ relevant_tools = agent.find_relevant_tools("Find trains to Manchester")
 The agent can coordinate complex operations across servers:
 ```python
 # Example: Complete travel planning across multiple servers
-"Plan a trip from Leeds to East Croydon with trains and hotels"
-# → Routes to train server for Leeds→London, adds connection info, finds hotels
+"Plan a trip from <Location A> to <Location B> with trains and hotels"
+# → Routes to train server for <Location A>→London, adds connection info, finds hotels
 ```
 
 ## 🔧 Configuration
@@ -216,16 +216,16 @@ The agent can chain operations:
 
 ### 1. Complete Travel Planning
 ```bash
-"Plan a complete round trip from Leeds to East Croydon on 15/12/2025, 
+"Plan a complete round trip from <Location A> to <Location B> on 15/12/2025, 
 returning 16/12/2025 for 1 person. I need trains to London Kings Cross 
-and hotels in East Croydon."
+and hotels in <Location B>."
 ```
 → Provides outbound trains, connection info, return trains, and hotels in one response
 
 ### 2. Multi-Intent Travel Queries
 ```bash
-"I want to catch a train from Leeds at 17:40 for London Kings Cross 
-and want to stay at Travelodge in East Croydon. Show me options."
+"I want to catch a train from <Location A> at 17:40 for London Kings Cross 
+and want to stay at Travelodge in <Location B>. Show me options."
 ```
 → Coordinates train search and hotel search simultaneously
 
@@ -237,7 +237,7 @@ and want to stay at Travelodge in East Croydon. Show me options."
 
 ### 4. Hotel Search & Comparison
 ```bash
-"Find hotels in East Croydon for December 15-16 for 1 guest"
+"Find hotels in <Location B> for December 15-16 for 1 guest"
 ```
 → Searches UK hotel chains, provides pricing and contact information
 

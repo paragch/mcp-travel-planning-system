@@ -20,11 +20,11 @@ def demo_hotel_search():
     # Demo searches
     searches = [
         {
-            "location": "East Croydon",
+            "location": "<Location B>",
             "checkin": "2025-12-15", 
             "checkout": "2025-12-16",
             "guests": 2,
-            "description": "Your main request - East Croydon hotels"
+            "description": "Your main request - <Location B> hotels"
         },
         {
             "location": "London",

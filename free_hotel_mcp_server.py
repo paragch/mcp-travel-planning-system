@@ -26,7 +26,7 @@ class FreeHotelMCPServer:
                 "parameters": {
                     "type": "object",
                     "properties": {
-                        "location": {"type": "string", "description": "Location to search (e.g., 'East Croydon', 'London')"},
+                        "location": {"type": "string", "description": "Location to search (e.g., '<Location B>', 'London')"},
                         "checkin": {"type": "string", "description": "Check-in date (YYYY-MM-DD)"},
                         "checkout": {"type": "string", "description": "Check-out date (YYYY-MM-DD)"},
                         "radius": {"type": "integer", "description": "Search radius in meters", "default": 5000}
@@ -99,7 +99,7 @@ class FreeHotelMCPServer:
 ❌ Could not find coordinates for {location}
 
 💡 Try these alternatives:
-• Use full area names (e.g., "East Croydon, London")
+• Use full area names (e.g., "<Location B>, London")
 • Check spelling
 • Use nearby major cities
 

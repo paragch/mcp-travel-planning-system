@@ -51,7 +51,7 @@ def test_web_interface():
     try:
         response = requests.post(
             f"{base_url}/api/chat",
-            json={"message": "hotels in East Croydon for December 15-16"},
+            json={"message": "hotels in <Location B> for December 15-16"},
             timeout=30
         )
         
@@ -59,7 +59,7 @@ def test_web_interface():
             data = response.json()
             reply = data.get('reply', '')
             
-            if 'Premier Inn East Croydon' in reply:
+            if 'Premier Inn <Location B>' in reply:
                 print("✅ Hotel search working via web interface!")
                 print("📋 Sample response:")
                 print(reply[:300] + "...")

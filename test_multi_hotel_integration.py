@@ -21,11 +21,11 @@ def test_multi_hotel_server():
         print(f"✅ Tools registered: {tools}")
         
         # Test hotel search
-        print("\n🏨 Testing hotel search for East Croydon...")
-        result = server.search_hotels('East Croydon', '2025-12-15', '2025-12-16', 2)
+        print("\n🏨 Testing hotel search for <Location B>...")
+        result = server.search_hotels('<Location B>', '2025-12-15', '2025-12-16', 2)
         
         # Check if we got realistic results
-        if "Premier Inn East Croydon" in result:
+        if "Premier Inn <Location B>" in result:
             print("✅ UK Hotel Chains data working")
         
         if "£" in result and "/night" in result:
@@ -100,7 +100,7 @@ def main():
     
     if server_ok and agent_ok:
         print("\n🎉 SUCCESS! Multi-Hotel API is fully integrated")
-        print("💡 Try searching for 'hotels in East Croydon' in your web interface")
+        print("💡 Try searching for 'hotels in <Location B>' in your web interface")
     elif server_ok:
         print("\n⚠️  Multi-Hotel server works, but strand agent needs restart")
         print("🔄 Restart your web server to pick up the new hotel API")

@@ -48,7 +48,7 @@ class MultiHotelAPIServer:
                 "parameters": {
                     "type": "object",
                     "properties": {
-                        "location": {"type": "string", "description": "City or area to search (e.g., 'East Croydon', 'London')"},
+                        "location": {"type": "string", "description": "City or area to search (e.g., '<Location B>', 'London')"},
                         "checkin": {"type": "string", "description": "Check-in date (YYYY-MM-DD)"},
                         "checkout": {"type": "string", "description": "Check-out date (YYYY-MM-DD)"},
                         "guests": {"type": "integer", "description": "Number of guests", "default": 2}
@@ -291,7 +291,7 @@ class MultiHotelAPIServer:
 • Check spelling: '{location}'
 • Use nearby major cities
 • Try 'London' for broader search
-• Use full names like 'East Croydon, London'
+• Use full names like '<Location B>, London'
 
 🔍 Supported areas: All UK cities and towns"""
             

@@ -78,7 +78,7 @@ The strand agent understands natural language and routes to appropriate services
 # Hotel searches → Multi-hotel server
 "Find hotels in London for December 20-22 for 2 guests"
 "Show me hotels near King's Cross station"
-"Find hotels in East Croydon for December 15-16 for 1 guest"
+"Find hotels in <Location B> for December 15-16 for 1 guest"
 
 # Train searches → Trainline server  
 "Find trains from London to Manchester today"
@@ -87,12 +87,12 @@ The strand agent understands natural language and routes to appropriate services
 "I want to catch a train from Leeds at 17:40 for London Kings Cross"
 
 # Round trip travel planning (NEW!)
-"Plan a complete round trip from Leeds to East Croydon on 15/12/2025, returning 16/12/2025 for 1 person"
-"Plan a complete trip including both train and hotel from Leeds to East Croydon on December 15, returning December 16"
+"Plan a complete round trip from <Location A> to <Location B> on 15/12/2025, returning 16/12/2025 for 1 person"
+"Plan a complete trip including both train and hotel from <Location A> to <Location B> on December 15, returning December 16"
 "Complete round trip from Manchester to London on December 20, returning December 22"
 
 # Complex multi-intent requests
-"I want to catch a train from Leeds at 17:40 for London Kings Cross and want to stay at Travelodge in East Croydon"
+"I want to catch a train from <Location A> at 17:40 for London Kings Cross and want to stay at Travelodge in <Location B>"
 "Find morning trains to Manchester and hotels near the station for tonight"
 
 # Mixed requests (uses multiple servers)
@@ -260,10 +260,10 @@ All servers are configured in `.kiro/settings/mcp.json`:
 ### 1. Complete Round Trip Planning (NEW!)
 ```bash
 # Comprehensive round trip with all components
-"Plan a complete round trip from Leeds to East Croydon on 15/12/2025, returning 16/12/2025 for 1 person"
+"Plan a complete round trip from <Location A> to <Location B> on 15/12/2025, returning 16/12/2025 for 1 person"
 
 # Business round trip with specific requirements
-"Plan a complete trip including both train and hotel from Leeds to East Croydon on December 15, returning December 16"
+"Plan a complete trip including both train and hotel from <Location A> to <Location B> on December 15, returning December 16"
 
 # Using travel planner client
 ./venv/bin/python travel_planner_client.py
@@ -272,7 +272,7 @@ All servers are configured in `.kiro/settings/mcp.json`:
 ### 2. Complex Multi-Intent Queries
 ```bash
 # Train + Hotel in single request
-"I want to catch a train from Leeds at 17:40 for London Kings Cross and want to stay at Travelodge in East Croydon"
+"I want to catch a train from <Location A> at 17:40 for London Kings Cross and want to stay at Travelodge in <Location B>"
 
 # Business travel with timing
 "Find morning trains to Manchester and hotels near the station for tonight"
@@ -287,7 +287,7 @@ All servers are configured in `.kiro/settings/mcp.json`:
 ### 4. Last-Minute Booking
 ```bash
 "Find trains to Edinburgh today and hotels for tonight"
-"Show me options for East Croydon hotels tonight"
+"Show me options for <Location B> hotels tonight"
 ```
 
 ## 🔄 Integration Benefits

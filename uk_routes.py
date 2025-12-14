@@ -16,7 +16,7 @@ def main():
         "3": ("London", "Birmingham", "London to Birmingham"),
         "4": ("Manchester", "Liverpool", "Manchester to Liverpool"),
         "5": ("London", "Bristol", "London to Bristol"),
-        "6": ("Birmingham", "Leeds", "Birmingham to Leeds"),
+        "6": ("Birmingham", "<Location A>", "Birmingham to <Location A>"),
         "7": ("London", "Glasgow", "London to Glasgow"),
         "8": ("Newcastle", "London", "Newcastle to London"),
         "9": ("Cardiff", "London", "Cardiff to London"),
