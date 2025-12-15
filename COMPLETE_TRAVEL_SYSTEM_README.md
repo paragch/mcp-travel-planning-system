@@ -200,7 +200,7 @@ All servers are configured in `.kiro/settings/mcp.json`:
 
 **For Live Train Data:**
 1. Register at https://transportapi.com (free tier available)
-2. Run: `./venv/bin/python setup_real_api.py`
+2. Run: `./venv/bin/python setup_real_apis.py`
 3. Enter your API credentials
 
 **For Live Hotel Data:**

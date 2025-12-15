@@ -65,11 +65,10 @@ KiroPythonProject/
 ├── 🏨 Hotel Services
 │   ├── multi_hotel_api_server.py    # Main hotel server (UK chains + OpenStreetMap)
 │   ├── demo_hotel_search.py         # Hotel search demo and testing
-│   ├── enhanced_hotel_mcp_server.py # Enhanced hotel features
 │   └── travel_planner_client.py     # Complete travel client
 ├── 🔧 Configuration
 │   ├── .kiro/settings/mcp.json      # MCP server config
-│   ├── setup_real_apis.py           # Transport API setup
+│   ├── setup_real_apis.py           # API setup script
 │   └── setup_rapidapi_hotels.py     # Optional hotel API enhancement
 ├── 🧪 Testing
 │   ├── test_strand_agent.py         # Comprehensive tests

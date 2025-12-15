@@ -18,7 +18,7 @@ With real API integration, your MCP server will provide:
 
 ### Step 1: Run the Setup Script
 ```bash
-./venv/bin/python setup_real_api.py
+./venv/bin/python setup_real_apis.py
 ```
 
 The script will guide you through:
@@ -151,12 +151,12 @@ echo '{"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": "ge
 
 Your existing web UI will automatically work with the real API! Just:
 
-1. Update your `trainline_web_ui.py` to use `real_trainline_mcp_server.py`
+1. The `strand_agent_web.py` automatically uses `real_trainline_mcp_server.py`
 2. Or update the server script path in the web UI configuration
 
 ```python
-# In trainline_web_ui.py, change:
-self.server_script = "real_trainline_mcp_server.py"
+# The strand_agent_web.py automatically connects to real_trainline_mcp_server.py
+# via the MCP configuration in .kiro/settings/mcp.json
 ```
 
 ## 📊 API Limits and Pricing
@@ -223,7 +223,7 @@ def get_disruptions(station_code):
 
 ## 🎉 Next Steps
 
-1. **Run the setup script:** `./venv/bin/python setup_real_api.py`
+1. **Run the setup script:** `./venv/bin/python setup_real_apis.py`
 2. **Test with your web UI:** Start the web interface and try searches
 3. **Explore advanced features:** Add price monitoring, alerts, etc.
 4. **Scale up:** Consider paid API tiers for production use
